@@ -1,0 +1,152 @@
+1. a. The Spell class is the parent class and the Accio and the Condundo is the child class
+b. Accio
+   Summoning Charm Accio
+   No description
+   Confudus Charm Confudo
+   Causes the victim to become confused and beffunddled.
+c. getDescription method defined on the Spell class
+   getDescription method derived from the parents class (Spell class) on the Accio class 
+   getDescription method defined on the Confundo class
+d. class Accio(Spell):
+      def __init__(self):
+        Spell.init(self, 'Accio', 'Summoning Charm')
+      
+      #overload the getDescription method from the parent class (Spell class)
+      def getDescription (self):
+        return 'This charm summons an object to the caster, potentially over a significant distance.'
+        
+        
+2. Manage Staff Salary Data Program 
+class Staff():
+    __name= ''
+    __position = ''
+    __salary = 0 
+    
+    def __init__(self, name, position, salary):
+        self.__name = name
+        self.__position = position 
+        self.__salary = wage
+        
+    def getName(self):
+        return self.___name
+    
+    def getPosition(self):
+        return self.__position
+   
+    def getSalary(self):
+        return self.salary
+        
+    def getDescription(self,name):
+          return self.__name + self.__position + self.__salary
+
+ID_lst = []
+Name_lst = []
+Position_lst = []
+Salary_lst = []
+
+def userInput():
+    while True:
+        identification = input ("Input ID [SXXXX]: ")
+        if len(identification)> 5 or len(identification)< 5 :
+            print("Invalid input\n")
+            return False
+        if identification[0] != 'S':
+            print("Invalid input\n")
+            return False
+        try:
+            identification2 = int(identification[1:5])
+        except ValueError:
+            print("Invalid input\n")
+            return False
+            
+        else: 
+            ID_lst.append(identification)
+            name = input("Input name [0..20]: " )
+            if  len(name) > 20 :
+                print("Invalid input\n")
+                return False
+            else: 
+                Name_lst.append(name)
+                pos = ['Staff','Officer','Manager']
+                position = input("Input Position[Staff|Officer|Manager]: ")
+                Position_lst.append(position)
+                if position.title() not in pos:
+                    print("Invalid input\n")
+                    return False
+                else: 
+                    if position == "Staff":
+                        wage = int(input("Input Salary for Staff: "))
+                        if wage in range (3500000, 7000001):
+                            Salary_lst.append(wage)
+                            print("Data added")
+                            break
+                        else:
+                            print("Invalid input, view the summary data for more info\n")
+                            return False
+                    elif position == "Officer":
+                        wage = int(input("Input Salary for Officer: "))
+                        if wage in range (7000001,10000001):
+                            Salary_lst.append(wage)
+                            print("Data added")
+                            break
+                        else:
+                            print("Invalid input, view the summary data for more info\n")
+                            return False
+                    elif position == "Manager":
+                        wage = int(input("Input Salary for Manager: "))
+                        if wage > 10000000:
+                            Salary_lst.append(wage)
+                            print("Data added")
+                            break
+                        else:
+                            print("Invalid input, view the summary data for more info\n")
+                            return False
+
+def deleteUser():
+    print("Delete Staff")
+    enter_id = input ("Input ID[SXXXX]: ").strip()
+    ID_lst.remove(enter_id)
+    filename = 'data.txt'
+    with open (filename) as f_obj:
+        line = f_obj.readlines()
+        f_obj.seek(0)
+        for i in line:
+            if i != enter_id:
+                f_obj.write(i)
+                f_obj.truncate()
+                print("Data has been successfully deleted")
+            else: 
+                print("Data Not Found")
+                     
+loop = 1 
+while loop == 1:
+    print("1. New Staff\n2. Delete Staff\n3. View Summary Data\n4. Save & Exit\n5. End Program")
+    choice = input("Input Choice: ")
+    if choice == '1':
+        userInput()
+                      
+    if choice == '2':
+        deleteUser()
+                
+    if choice == '3':
+        print("1. Staff\n Minimum Salary: 4500000\n Maximum Salary: 5000000\n Average Salary: 4750000\n")
+        print("2. Officer\n Minimum Salary: 8500000\n Maximum Salary: 8500000\n Average Salary: 8500000\n")
+        print("3. Manager \n Minimum Salary: 10700000\n Maximum Salary: 10700000\n Average Salary: 10700000\n")
+                        
+    if choice == '4':
+        filename = 'data.txt'
+        with open (filename,'w') as f_obj:
+            ID_lst = [str(i) for i in ID_lst]
+            f_obj.writelines(ID_lst)
+            f_obj.writelines(Name_lst)
+            f_obj.writelines(Position_lst)
+            Salary_lst = [str(i) for i in Salary_lst]
+            f_obj.writelines(Salary_lst)
+        loop = 0                   
+        
+    if choice == '5':
+        loop = 0
+
+#Output in data.txt
+S0001BillyStaff350000 S0002BobbyStaff450000 S0003JohnOfficer7000001 S0004KennyManager10000001      
+'''
